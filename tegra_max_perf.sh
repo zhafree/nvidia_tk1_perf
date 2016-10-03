@@ -1,4 +1,12 @@
 #!/bin/sh
+#
+# Turn on all performance for the TK1
+#
+# Version control system: See Git
+#
+# Anti USB freeze
+
+echo -1 > /sys/module/usbcore/parameters/autosuspend
 
 # turn on fan for safety
 echo "Enabling fan for safety..."
