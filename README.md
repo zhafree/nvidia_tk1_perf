@@ -1,5 +1,19 @@
 #  Scope
-This script enables maximum performance for NVIDIA's Tegra TK1 .
+This script enables maximum performance for NVIDIA's Tegra TK1.
+
+# Activation
+
+Before:
+
+ubuntu@tegra-ubuntu:~$ ./tegrastats 
+RAM 598/1892MB (lfb 209x4MB) cpu [0%,off,off,off]@-1 VDE 0 EDP limit 0
+
+After:
+
+ubuntu@tegra-ubuntu:~$ ./tegrastats 
+RAM 601/1892MB (lfb 207x4MB) cpu [0%,0%,0%,0%]@-1 VDE 0 EDP limit 0 
+
+:rocket:
 
 # References
 
