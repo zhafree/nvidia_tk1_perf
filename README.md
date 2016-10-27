@@ -1,17 +1,24 @@
 #  Scope
 This script enables maximum performance for NVIDIA's Tegra TK1.
 
-# Activation
+# Activate CPUs, GPU, etc.
 
-Before:
+sudo ./tegra_max_perf.sh
 
-ubuntu@tegra-ubuntu:~$ ./tegrastats 
-RAM 598/1892MB (lfb 209x4MB) cpu [0%,off,off,off]@-1 VDE 0 EDP limit 0
+# Deactivate CPUs (not GPU)
 
-After:
+sudo ./tegra_max_perf.sh off
 
-ubuntu@tegra-ubuntu:~$ ./tegrastats 
-RAM 601/1892MB (lfb 207x4MB) cpu [0%,0%,0%,0%]@-1 VDE 0 EDP limit 0 
+# Activate fan (if available - not tested due to passive cooling setup)
+
+sudo ./tegra_max_perf.sh fan
+
+
+# Stats
+
+Check stats with NVIDIA's original tegrastats:
+
+./tegrastats 
 
 :rocket:
 
