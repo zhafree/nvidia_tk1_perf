@@ -39,7 +39,7 @@ echo G > /sys/kernel/cluster/active
 echo "Cluster: `cat /sys/kernel/cluster/active`"
 
 if [ "$2" = "off" ]
-
+then
 	# offline CPU 1-3
 	echo "Offlining CPUs: ignore errors..."
 	for i in 1 2 3 ; do
