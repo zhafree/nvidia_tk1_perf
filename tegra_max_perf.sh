@@ -36,16 +36,20 @@ echo 0 > /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable
 echo 1 > /sys/kernel/cluster/immediate
 echo 1 > /sys/kernel/cluster/force
 echo G > /sys/kernel/cluster/active
-echo "Cluster: `cat /sys/kernel/cluster/active`"
+echo Cluster: $(cat /sys/kernel/cluster/active)
 
-if [ "$2" = "off" ]
+if [ "$1" = "off" ]
 then
+
 	# offline CPU 1-3
+	
+	echo 1 > /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable
+	
 	echo "Offlining CPUs: ignore errors..."
-	for i in 1 2 3 ; do
+	for i in 0 1 2 3 ; do
 		echo 0 > /sys/devices/system/cpu/cpu${i}/online
 	done
-	echo "Offline CPUs: `cat /sys/devices/system/cpu/online`"
+	echo Offline CPUs: $(cat /sys/devices/system/cpu/online)
 
 else
 
@@ -54,7 +58,7 @@ else
 	for i in 0 1 2 3 ; do
 		echo 1 > /sys/devices/system/cpu/cpu${i}/online
 	done
-	echo "Online CPUs: `cat /sys/devices/system/cpu/online`"
+	echo Online CPUs: $(cat /sys/devices/system/cpu/online)
 
 
 # set CPUs to max freq (perf governor not enabled on L4T yet)
@@ -69,12 +73,12 @@ done
 # max GPU clock (should read from debugfs)
 cat /sys/kernel/debug/clock/gbus/max > /sys/kernel/debug/clock/override.gbus/rate
 echo 1 > /sys/kernel/debug/clock/override.gbus/state
-echo "GPU: `cat /sys/kernel/debug/clock/gbus/rate`"
+echo GPU: $(cat /sys/kernel/debug/clock/gbus/rate)
 
 # max EMC clock (should read from debugfs)
 cat /sys/kernel/debug/clock/emc/max > /sys/kernel/debug/clock/override.emc/rate
 echo 1 > /sys/kernel/debug/clock/override.emc/state
-echo "EMC: `cat /sys/kernel/debug/clock/emc/rate`"
+echo EMC: $(cat /sys/kernel/debug/clock/emc/rate)
 
 
 	fi
