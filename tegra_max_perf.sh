@@ -69,7 +69,7 @@ echo Offline CPUs: $(cat /sys/devices/system/cpu/offline)
 # set CPUs to max freq (perf governor not enabled on L4T yet)
 
 echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-cpumax=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies | awk '{print $NF}'`
+cpumax=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies | awk '{print $NF}')
 echo "${cpumax}" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
 for i in 0 1 2 3 ; do
 	echo CPU${i}: $(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
