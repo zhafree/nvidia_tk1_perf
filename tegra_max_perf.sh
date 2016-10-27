@@ -32,34 +32,39 @@ then
 
 else
 
-echo 0 > /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable
-echo 1 > /sys/kernel/cluster/immediate
-echo 1 > /sys/kernel/cluster/force
-echo G > /sys/kernel/cluster/active
-echo Cluster: $(cat /sys/kernel/cluster/active)
-
 if [ "$1" = "off" ]
 then
 
-	# offline CPU 1-3
+# Offline all CPUs
 	
 	echo 1 > /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable
+	echo 0 > /sys/kernel/cluster/immediate
+	echo 0 > /sys/kernel/cluster/force
+	echo Cluster: $(cat /sys/kernel/cluster/active)
 	
 	echo "Offlining CPUs: ignore errors..."
 	for i in 0 1 2 3 ; do
 		echo 0 > /sys/devices/system/cpu/cpu${i}/online
 	done
-	echo Offline CPUs: $(cat /sys/devices/system/cpu/online)
+	echo Online  CPUs: $(cat /sys/devices/system/cpu/online)
+	echo Offline CPUs: $(cat /sys/devices/system/cpu/offline)
 
 else
 
-	# online all CPUs - ignore errors for already-online units
-	echo "Onlining CPUs: ignore errors..."
-	for i in 0 1 2 3 ; do
-		echo 1 > /sys/devices/system/cpu/cpu${i}/online
-	done
-	echo Online CPUs: $(cat /sys/devices/system/cpu/online)
+	echo 0 > /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable
+	echo 1 > /sys/kernel/cluster/immediate
+	echo 1 > /sys/kernel/cluster/force
+	echo G > /sys/kernel/cluster/active #G?
+	echo Cluster: $(cat /sys/kernel/cluster/active)
 
+# Online all CPUs
+
+echo "Onlining CPUs: ignore errors..."
+for i in 0 1 2 3 ; do
+	echo 1 > /sys/devices/system/cpu/cpu${i}/online
+done
+echo Online  CPUs: $(cat /sys/devices/system/cpu/online)
+echo Offline CPUs: $(cat /sys/devices/system/cpu/offline)
 
 # set CPUs to max freq (perf governor not enabled on L4T yet)
 
@@ -67,7 +72,7 @@ echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 cpumax=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies | awk '{print $NF}'`
 echo "${cpumax}" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
 for i in 0 1 2 3 ; do
-	echo "CPU${i}: `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`"
+	echo CPU${i}: $(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
 done
 
 # max GPU clock (should read from debugfs)
