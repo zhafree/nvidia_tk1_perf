@@ -29,3 +29,6 @@ https://devtalk.nvidia.com/default/topic/901337/jetson-tx1/cuda-7-0-jetson-tx1-p
 http://elinux.org/Jetson/Performance
 
 http://www.nvidia.com/object/jetson-tk1-embedded-dev-kit.html
+
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/385cf436939047a5b8e803b3578561e1)](https://www.codacy.com/app/ludwig-schreier/nvidia_tk1_perf?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ludwigschreier/nvidia_tk1_perf&amp;utm_campaign=Badge_Grade)
